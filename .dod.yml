@@ -1,0 +1,8 @@
+# Definition of Done, shown by `tbdflow commit` before each commit.
+checklist:
+  - "`swift build -c release` succeeds."
+  - "`swift test` passes on Linux."
+  - "New behaviour is covered by tests (golden vectors for codec changes)."
+  - "CHANGELOG.md is updated for user-visible changes."
+  - "The package still conforms to the firechip/cobs-conformance vectors."
+  - "Public API changes are documented and the macOS CI build is green."

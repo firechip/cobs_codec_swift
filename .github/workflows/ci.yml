@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    name: Build & test (Linux)
+    runs-on: ubuntu-latest
+    container: swift:6.1
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift --version
+      - run: swift build
+      - run: swift test
+
+  macos:
+    name: Build & test (macOS)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift --version
+      - run: swift build -c release
+      - run: swift test
+
+  conformance:
+    name: Conformance vectors
+    runs-on: ubuntu-latest
+    container: swift:6.1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download shared conformance vectors
+        run: |
+          apt-get update -qq && apt-get install -y -qq curl
+          base=https://raw.githubusercontent.com/firechip/cobs-conformance/v1.1.0/vectors
+          curl -sSfL -o vectors.jsonl "$base/vectors.jsonl"
+          curl -sSfL -o sentinel.jsonl "$base/sentinel.jsonl"
+          curl -sSfL -o errors.jsonl "$base/errors.jsonl"
+      - name: Check conformance
+        env:
+          COBS_CONFORMANCE_VECTORS: ${{ github.workspace }}/vectors.jsonl
+          COBS_CONFORMANCE_SENTINEL: ${{ github.workspace }}/sentinel.jsonl
+          COBS_CONFORMANCE_ERRORS: ${{ github.workspace }}/errors.jsonl
+        run: swift test --filter Conformance
