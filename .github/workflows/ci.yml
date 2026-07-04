@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     container: swift:6.1
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: swift --version
       - run: swift build
       - run: swift test
@@ -24,7 +24,7 @@ jobs:
     name: Build & test (macOS)
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: swift --version
       - run: swift build -c release
       - run: swift test
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     container: swift:6.1
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Download shared conformance vectors
         run: |
           apt-get update -qq && apt-get install -y -qq curl
