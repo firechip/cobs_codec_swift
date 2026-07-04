@@ -7,6 +7,7 @@
 //
 
 import XCTest
+
 @testable import CobsCodec
 
 final class GoldenTests: XCTestCase {
@@ -63,7 +64,7 @@ final class GoldenTests: XCTestCase {
 
     func testCobsRoundTripBlockBoundaries() throws {
         for n in [253, 254, 255, 256, 510] {
-            let data = (0..<n).map { UInt8(($0 % 255) + 1) } // no zeros
+            let data = (0..<n).map { UInt8(($0 % 255) + 1) }  // no zeros
             let encoded = Cobs.encode(data)
             XCTAssertFalse(encoded.contains(0), "n=\(n) output has zero")
             XCTAssertEqual(try Cobs.decode(encoded), data, "cobs round trip n=\(n)")
@@ -78,7 +79,7 @@ final class GoldenTests: XCTestCase {
         // A pseudo-random spread of lengths and byte values.
         var state: UInt64 = 0x1234_5678_9abc_def0
         func next() -> UInt8 {
-            state = state &* 6364136223846793005 &+ 1442695040888963407
+            state = state &* 6_364_136_223_846_793_005 &+ 1_442_695_040_888_963_407
             return UInt8((state >> 33) & 0xFF)
         }
         for len in 0..<300 {
@@ -105,13 +106,15 @@ final class GoldenTests: XCTestCase {
             for p in payloads {
                 let c = Cobs.encode(p, sentinel: sentinel)
                 if sentinel != 0 {
-                    XCTAssertFalse(c.contains(sentinel), "cobs output must avoid sentinel \(sentinel)")
+                    XCTAssertFalse(
+                        c.contains(sentinel), "cobs output must avoid sentinel \(sentinel)")
                 }
                 XCTAssertEqual(try Cobs.decode(c, sentinel: sentinel), p)
 
                 let r = Cobsr.encode(p, sentinel: sentinel)
                 if sentinel != 0 {
-                    XCTAssertFalse(r.contains(sentinel), "cobsr output must avoid sentinel \(sentinel)")
+                    XCTAssertFalse(
+                        r.contains(sentinel), "cobsr output must avoid sentinel \(sentinel)")
                 }
                 XCTAssertEqual(try Cobsr.decode(r, sentinel: sentinel), p)
             }
@@ -123,7 +126,7 @@ final class GoldenTests: XCTestCase {
     func testDecodeInPlaceMatchesNormal() throws {
         var state: UInt64 = 0xdead_beef_cafe_babe
         func next() -> UInt8 {
-            state = state &* 6364136223846793005 &+ 1442695040888963407
+            state = state &* 6_364_136_223_846_793_005 &+ 1_442_695_040_888_963_407
             return UInt8((state >> 33) & 0xFF)
         }
         for sentinel: UInt8 in [0x00, 0x7F, 0xFF] {
@@ -190,7 +193,8 @@ final class GoldenTests: XCTestCase {
                     wire += Framing.frame(p, reduced: reduced, sentinel: sentinel)
                     nonEmpty.append(p)
                 }
-                let out = try Framing.unframe(wire, reduced: reduced, skipEmpty: false, sentinel: sentinel)
+                let out = try Framing.unframe(
+                    wire, reduced: reduced, skipEmpty: false, sentinel: sentinel)
                 XCTAssertEqual(out, nonEmpty, "reduced=\(reduced) sentinel=\(sentinel)")
             }
         }
@@ -246,7 +250,7 @@ final class GoldenTests: XCTestCase {
 
     func testStreamDecoderReset() throws {
         let dec = CobsStreamDecoder()
-        _ = try dec.feed([0x02, 0x11]) // partial frame, no delimiter yet
+        _ = try dec.feed([0x02, 0x11])  // partial frame, no delimiter yet
         dec.reset()
         // After reset the buffered partial frame is gone; a fresh frame decodes.
         let frames = try dec.feed(Framing.frame([0x33]))

@@ -29,8 +29,11 @@ public enum Framing {
     ///   - reduced: Use COBS/R (``Cobsr``) instead of basic COBS (``Cobs``).
     ///   - sentinel: The byte the encoding avoids and that delimits the frame.
     /// - Returns: The encoded packet followed by the delimiter byte.
-    public static func frame(_ packet: [UInt8], reduced: Bool = false, sentinel: UInt8 = 0) -> [UInt8] {
-        var output = reduced
+    public static func frame(_ packet: [UInt8], reduced: Bool = false, sentinel: UInt8 = 0)
+        -> [UInt8]
+    {
+        var output =
+            reduced
             ? Cobsr.encode(packet, sentinel: sentinel)
             : Cobs.encode(packet, sentinel: sentinel)
         output.append(sentinel)
@@ -73,7 +76,8 @@ public enum Framing {
                 }
                 continue
             }
-            let decoded = reduced
+            let decoded =
+                reduced
                 ? try Cobsr.decode(frame, sentinel: sentinel)
                 : try Cobs.decode(frame, sentinel: sentinel)
             frames.append(decoded)
@@ -147,7 +151,8 @@ public final class CobsStreamDecoder {
                 }
                 continue
             }
-            let decoded = reduced
+            let decoded =
+                reduced
                 ? try Cobsr.decode(frame, sentinel: sentinel)
                 : try Cobs.decode(frame, sentinel: sentinel)
             frames.append(decoded)

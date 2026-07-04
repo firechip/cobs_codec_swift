@@ -11,8 +11,9 @@
 //    COBS_CONFORMANCE_ERRORS   -> {encoded, cobs, cobsr}   (cobs/cobsr may be null)
 //
 
-import XCTest
 import Foundation
+import XCTest
+
 @testable import CobsCodec
 
 final class ConformanceTests: XCTestCase {
@@ -102,8 +103,12 @@ final class ConformanceTests: XCTestCase {
             XCTAssertEqual(encCobs, cobs, "line \(n): cobs sentinel encode")
             XCTAssertEqual(encCobsr, cobsr, "line \(n): cobsr sentinel encode")
             // sentinel decode matches
-            XCTAssertEqual(try Cobs.decode(cobs, sentinel: sentinel), decoded, "line \(n): cobs sentinel decode")
-            XCTAssertEqual(try Cobsr.decode(cobsr, sentinel: sentinel), decoded, "line \(n): cobsr sentinel decode")
+            XCTAssertEqual(
+                try Cobs.decode(cobs, sentinel: sentinel), decoded,
+                "line \(n): cobs sentinel decode")
+            XCTAssertEqual(
+                try Cobsr.decode(cobsr, sentinel: sentinel), decoded,
+                "line \(n): cobsr sentinel decode")
             // output avoids the sentinel byte
             XCTAssertFalse(encCobs.contains(sentinel), "line \(n): cobs output contains sentinel")
             XCTAssertFalse(encCobsr.contains(sentinel), "line \(n): cobsr output contains sentinel")
@@ -127,16 +132,22 @@ final class ConformanceTests: XCTestCase {
             // where null means the decode must throw.
             switch expectation(row, "cobs") {
             case .output(let want):
-                XCTAssertEqual(try Cobs.decode(encoded), want, "line \(n): cobs decode of \(hexFromBytes(encoded))")
+                XCTAssertEqual(
+                    try Cobs.decode(encoded), want,
+                    "line \(n): cobs decode of \(hexFromBytes(encoded))")
             case .throwsError:
-                XCTAssertThrowsError(try Cobs.decode(encoded), "line \(n): cobs decode should throw")
+                XCTAssertThrowsError(
+                    try Cobs.decode(encoded), "line \(n): cobs decode should throw")
             }
 
             switch expectation(row, "cobsr") {
             case .output(let want):
-                XCTAssertEqual(try Cobsr.decode(encoded), want, "line \(n): cobsr decode of \(hexFromBytes(encoded))")
+                XCTAssertEqual(
+                    try Cobsr.decode(encoded), want,
+                    "line \(n): cobsr decode of \(hexFromBytes(encoded))")
             case .throwsError:
-                XCTAssertThrowsError(try Cobsr.decode(encoded), "line \(n): cobsr decode should throw")
+                XCTAssertThrowsError(
+                    try Cobsr.decode(encoded), "line \(n): cobsr decode should throw")
             }
         }
     }

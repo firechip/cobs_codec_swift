@@ -1,6 +1,7 @@
 # Definition of Done, shown by `tbdflow commit` before each commit.
 checklist:
-  - "`swift build -c release` succeeds."
+  - "`swift build -c release` succeeds with no warnings (`-Xswiftc -warnings-as-errors`)."
+  - "`swift format lint --strict --recursive Sources Tests Package.swift` is clean."
   - "`swift test` passes on Linux."
   - "New behaviour is covered by tests (golden vectors for codec changes)."
   - "CHANGELOG.md is updated for user-visible changes."

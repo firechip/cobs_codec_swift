@@ -17,8 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: swift --version
-      - run: swift build
-      - run: swift test
+      - run: swift build -Xswiftc -warnings-as-errors
+      - run: swift test -Xswiftc -warnings-as-errors
 
   macos:
     name: Build & test (macOS)
@@ -48,3 +48,11 @@ jobs:
           COBS_CONFORMANCE_SENTINEL: ${{ github.workspace }}/sentinel.jsonl
           COBS_CONFORMANCE_ERRORS: ${{ github.workspace }}/errors.jsonl
         run: swift test --filter Conformance
+
+  lint:
+    name: swift-format lint
+    runs-on: ubuntu-latest
+    container: swift:6.1
+    steps:
+      - uses: actions/checkout@v7
+      - run: swift format lint --strict --recursive Sources Tests Package.swift

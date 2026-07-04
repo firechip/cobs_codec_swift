@@ -19,9 +19,9 @@ func bytesFromHex(_ hex: String) -> [UInt8]? {
 
     func nibble(_ c: UInt8) -> UInt8? {
         switch c {
-        case 0x30...0x39: return c - 0x30          // '0'..'9'
-        case 0x61...0x66: return c - 0x61 + 10      // 'a'..'f'
-        case 0x41...0x46: return c - 0x41 + 10      // 'A'..'F'
+        case 0x30...0x39: return c - 0x30  // '0'..'9'
+        case 0x61...0x66: return c - 0x61 + 10  // 'a'..'f'
+        case 0x41...0x46: return c - 0x41 + 10  // 'A'..'F'
         default: return nil
         }
     }

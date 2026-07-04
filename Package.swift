@@ -21,7 +21,7 @@ let package = Package(
         .library(
             name: "CobsCodec",
             targets: ["CobsCodec"]
-        ),
+        )
     ],
     targets: [
         .target(
