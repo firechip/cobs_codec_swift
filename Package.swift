@@ -27,6 +27,11 @@ let package = Package(
         .target(
             name: "CobsCodec"
         ),
+        // Dev-only throughput benchmark; not part of the shipped library.
+        .executableTarget(
+            name: "cobs-bench",
+            dependencies: ["CobsCodec"]
+        ),
         .testTarget(
             name: "CobsCodecTests",
             dependencies: ["CobsCodec"]

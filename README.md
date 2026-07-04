@@ -93,6 +93,17 @@ Invalid encoded input throws `CobsDecodeError` (`.zeroByte` / `.truncated`).
 (basic, COBS/R, configurable-sentinel, and decode-error cases) in CI, so it
 interoperates exactly with the Rust, Dart, and Kotlin members of the family.
 
+## Benchmarks
+
+Throughput on a 1 KiB payload (`swift run -c release cobs-bench`), Swift 6.2 on an
+AMD Ryzen 7 3800XT under WSL2 — indicative (includes result allocation):
+
+| Operation | Throughput |
+| --------- | ---------- |
+| `Cobs.encode` | ~1090 MB/s |
+| `Cobs.decode` | ~1150 MB/s |
+| `Cobsr.encode` | ~850 MB/s |
+
 ## Background
 
 Stuart Cheshire and Mary Baker, "Consistent Overhead Byte Stuffing",
