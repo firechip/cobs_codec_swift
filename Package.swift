@@ -1,6 +1,7 @@
 // swift-tools-version: 6.0
 //
-// Package manifest for `cobs_codec_swift`, a pure-Swift COBS / COBS-R codec.
+// Package manifest for the `cobs_codec` package (repository `cobs_codec_swift`),
+// a pure-Swift COBS / COBS-R codec.
 //
 // The `CobsCodec` library target is Swift-standard-library-only (no Foundation,
 // no Apple frameworks, no external dependencies) so it stays portable to Linux
@@ -9,7 +10,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "cobs_codec_swift",
+    name: "cobs_codec",
     platforms: [
         .macOS(.v13),
         .iOS(.v16),

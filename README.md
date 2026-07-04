@@ -29,9 +29,7 @@ dependencies: [
     .package(url: "https://github.com/firechip/cobs_codec_swift.git", from: "1.0.0"),
 ],
 targets: [
-    .target(name: "YourTarget", dependencies: [
-        .product(name: "CobsCodec", package: "cobs_codec_swift"),
-    ]),
+    .target(name: "YourTarget", dependencies: ["CobsCodec"]),
 ]
 ```
 
