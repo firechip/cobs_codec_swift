@@ -1,8 +1,8 @@
 # CobsCodec
 
 [![CI](https://github.com/firechip/cobs_codec_swift/actions/workflows/ci.yml/badge.svg)](https://github.com/firechip/cobs_codec_swift/actions/workflows/ci.yml)
-[![Swift 6](https://img.shields.io/badge/swift-6-orange.svg)](https://swift.org)
-[![Platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20iOS%20%7C%20Linux-lightgrey.svg)](#)
+[![Swift Versions](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ffirechip%2Fcobs_codec_swift%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/firechip/cobs_codec_swift)
+[![Platforms](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ffirechip%2Fcobs_codec_swift%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/firechip/cobs_codec_swift)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Pure-Swift **Consistent Overhead Byte Stuffing (COBS)** and **COBS/R** codec — the
