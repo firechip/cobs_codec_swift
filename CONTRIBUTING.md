@@ -39,5 +39,19 @@ The macOS build is validated in CI on a macOS runner.
 ## Releases
 
 Releases follow [Semantic Versioning](https://semver.org). Swift Package Manager
-resolves versions from Git tags, so a release is a signed `vX.Y.Z` tag pushed to
-`main` (plus a `CHANGELOG.md` entry).
+resolves versions from Git tags, so there is no registry publish step — but the
+**GitHub Release is still created by hand; don't skip it.**
+
+1. Add a `## X.Y.Z` section to [`CHANGELOG.md`](CHANGELOG.md).
+2. Commit and tag it **signed**: `git tag -s vX.Y.Z -m "CobsCodec X.Y.Z"`; push
+   `main` and the tag. SwiftPM and the Swift Package Index pick it up from the tag.
+3. Create the **GitHub Release** for the tag with a description that matches the
+   other members — the `CHANGELOG.md` highlights, the SwiftPM install snippet,
+   and the [Swift Package Index](https://swiftpackageindex.com/firechip/cobs_codec_swift)
+   link. GitHub attaches the source archives automatically; there is no build
+   artifact to upload.
+
+   ```console
+   gh release create vX.Y.Z --verify-tag --title "CobsCodec X.Y.Z" \
+     --notes-file notes.md
+   ```
