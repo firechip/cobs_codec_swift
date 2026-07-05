@@ -104,6 +104,14 @@ AMD Ryzen 7 3800XT under WSL2 — indicative (includes result allocation):
 | `Cobs.decode` | ~1150 MB/s |
 | `Cobsr.encode` | ~850 MB/s |
 
+## Integrations
+
+The module stays stdlib-only and Foundation-free, so framework glue lives in
+your app rather than in the package. [INTEGRATIONS.md](INTEGRATIONS.md) has a
+verified copy-paste recipe: an `AsyncSequence` adapter (`bytes.cobsFrames()`)
+that reframes a raw byte stream into decoded packets, built on the public
+`CobsStreamDecoder`.
+
 ## Background
 
 Stuart Cheshire and Mary Baker, "Consistent Overhead Byte Stuffing",
